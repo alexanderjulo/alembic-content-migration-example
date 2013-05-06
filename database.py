@@ -8,3 +8,9 @@ class Contact(Base):
     __tablename__ = 'contacts'
     id = Column(Integer, primary_key=True)
     name = Column(String(length=100))
+
+    def __init__(self, name):
+        self.name = name
+
+    def __repr__(self):
+        return '<Contact: %s>' % self.name
