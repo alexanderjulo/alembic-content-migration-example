@@ -14,32 +14,22 @@ from alembic import op
 import sqlalchemy as sa
 from sqlalchemy.dialects import mysql
 
-# we additionally import sys and os to add the current path to python
-import sys
-import os
-# we append the path
-sys.path.append(os.getcwd())
-# we import our own module
-import database
-
 # we build a quick link for the current connection of alembic
 connection = op.get_bind()
 
 # now we build a helper table, that is kind of a hybrid. it has both,
 # the name column and the first- and lastname attribute because it will
-# be used in the migration, when both are available and necessary
-# it extends the existing table (see last parameter)
+# be used in the migration, when both are available and necessary.
 # in this case we define all attributes, because we also need the id
 # to identify rows, if you had more columns you would only have to specify
 # the relevant ones
 contacthelper = sa.Table(
     'contacts',
-    database.Base.metadata,
+    sa.MetaData(),
     sa.Column('id', sa.Integer, primary_key=True),
     sa.Column('name', sa.String(length=100)),
     sa.Column('firstname', sa.String(length=30)),
     sa.Column('lastname', sa.String(length=70)),
-    extend_existing=True
 )
 
 
