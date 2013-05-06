@@ -7,7 +7,8 @@ Base = declarative_base()
 class Contact(Base):
     __tablename__ = 'contacts'
     id = Column(Integer, primary_key=True)
-    name = Column(String(length=100))
+    firstname = Column(String(length=30))
+    lastname = Column(String(length=70))
 
     def __init__(self, name):
         self.name = name
