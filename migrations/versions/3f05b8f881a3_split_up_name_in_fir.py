@@ -14,9 +14,6 @@ from alembic import op
 import sqlalchemy as sa
 from sqlalchemy.dialects import mysql
 
-# we build a quick link for the current connection of alembic
-connection = op.get_bind()
-
 # now we build a helper table, that is kind of a hybrid. it has both,
 # the name column and the first- and lastname attribute because it will
 # be used in the migration, when both are available and necessary.
@@ -34,6 +31,9 @@ contacthelper = sa.Table(
 
 
 def upgrade():
+    # we build a quick link for the current connection of alembic
+    connection = op.get_bind()
+
     # we add the new columns first
     op.add_column(
         'contacts',
@@ -72,6 +72,9 @@ def upgrade():
 
 
 def downgrade():
+    # we build a quick link for the current connection of alembic
+    connection = op.get_bind()
+
     # for downgrading we do it exactly the other way around
     # we add the old column again
     op.add_column(
